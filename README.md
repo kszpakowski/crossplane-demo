@@ -33,7 +33,10 @@ Run `./mgmt-cluster/create.sh` to destroy kind cluster.
 
 ## Repository structure
 
-> TODO
+- docs - documentation assets
+- gitops - kubernetes manifests
+- kubernetes-api-client - Demo of querying Crossplane Composite Resources from kubernetes API using nodejs.
+- mgmt-cluster - local kind cluster with crossplane and argocd
 
 ## Crossplane resources
 
@@ -220,6 +223,18 @@ grc2d --> c2
 grcn --> cn
 grcnd --> cn
 ```
+
+## FAQ
+
+> TODO
+
+1. Q: How to disable reconciliation
+
+   A: ...
+
+2. Q: How to manage resources in multiple AWS accounts
+
+   A: ...
 
 ## TODO
 
