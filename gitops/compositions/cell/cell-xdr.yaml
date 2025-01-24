@@ -20,7 +20,7 @@ spec:
             type: object
             properties:
               account:
-                type: number # Account number is used to select providers configs
+                type: string # Account number is used to select providers configs
               region:
                 type: string 
               size:
