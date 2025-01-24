@@ -6,5 +6,5 @@ metadata:
     # crossplane.io/paused: "true"
 spec:
   region: eu-central-1
-  account: 779291601624
+  account: "779291601624"
   size: Large
