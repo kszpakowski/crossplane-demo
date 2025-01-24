@@ -34,9 +34,12 @@ Run `./mgmt-cluster/create.sh` to destroy kind cluster.
 ## Repository structure
 
 - docs - documentation assets
+- frontend - sample frontend application presenting data from kubernetes-api-client
 - gitops - kubernetes manifests
 - kubernetes-api-client - Demo of querying Crossplane Composite Resources from kubernetes API using nodejs.
 - mgmt-cluster - local kind cluster with crossplane and argocd
+
+<img src="./docs/img/frontend.png">
 
 ## Crossplane resources
 
