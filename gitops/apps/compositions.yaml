@@ -9,6 +9,8 @@ spec:
   destination:
     server: https://kubernetes.default.svc
   source:
+    directory:
+      recurse: true
     repoURL: https://github.com/kszpakowski/crossplane-demo.git
     path: "./gitops/compositions"
   project: default
