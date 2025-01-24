@@ -227,7 +227,7 @@ grcn --> cn
 grcnd --> cn
 ```
 
-## FAQ
+## Q&A
 
 > TODO
 
@@ -235,9 +235,13 @@ grcnd --> cn
 
    A: ...
 
-2. Q: How to manage resources in multiple AWS accounts
+1. Q: How to manage resources in multiple AWS accounts
 
    A: ...
+
+1. Q: How to query managed resources
+
+   A: Use kubernetes API client library to fetch managed resources. Check example code in `kubernetes-api-client`
 
 ## TODO
 
