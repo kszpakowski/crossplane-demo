@@ -112,9 +112,9 @@ subgraph Management EKS cluster
     end
 
     subgraph Crossplane
-        xr1[Cell1<br>type:xcell<br>name: cell-1<br>account: 12345<br>CompositeResource]
-        xr2[Cell2<br>type:xcell<br>name: cell-2<br>account: 6789<br>CompositeResource]
-        xrn[CellN<br>type:xcell<br>name: cell-n<br>account: 65432<br>CompositeResource]
+        xr1[Cell1<br>type:xcell<br>name: cell-1<br>account: 12345<br>region: eu-central-1<br>CompositeResource]
+        xr2[Cell2<br>type:xcell<br>name: cell-2<br>account: 6789<br>region: eu-central-1<br>CompositeResource]
+        xrn[CellN<br>type:xcell<br>name: cell-n<br>account: 65432<br>region: eu-central-1<br>CompositeResource]
 
         cxrd[xCell<br>Compositie Resource Definition]
         subgraph cc[Cell Composition]
