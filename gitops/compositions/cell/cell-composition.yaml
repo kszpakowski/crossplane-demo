@@ -8,24 +8,29 @@ spec:
     kind: xCell
   mode: Pipeline
   pipeline:
-  - step: patch-and-transform
-    functionRef:
-      name: function-patch-and-transform
-    input:
-      apiVersion: pt.fn.crossplane.io/v1beta1
-      kind: Resources
-      resources:
-      - name: storage-bucket
-        base:
-          apiVersion: s3.aws.upbound.io/v1beta1
-          kind: Bucket
-          spec:
-            forProvider:
-              region: "us-east-2"
-        patches:
-        - type: FromCompositeFieldPath
-          fromFieldPath: spec.region
-          toFieldPath: spec.forProvider.region
-        - type: FromCompositeFieldPath
-          fromFieldPath: metadata.name
-          toFieldPath: metadata.annotations['crossplane.io/external-name']
+    - step: patch-and-transform
+      functionRef:
+        name: function-patch-and-transform
+      input:
+        apiVersion: pt.fn.crossplane.io/v1beta1
+        kind: Resources
+        resources:
+          - name: storage-bucket
+            base:
+              apiVersion: s3.aws.upbound.io/v1beta1
+              kind: Bucket
+            patches:
+              - type: CombineFromComposite
+                combine:
+                  variables:
+                    - fromFieldPath: spec.account
+                  strategy: string
+                  string:
+                    fmt: "s3-%s"
+                toFieldPath: spec.providerConfigRef.name #https://docs.crossplane.io/v1.18/concepts/providers/#provider-configuration
+              - type: FromCompositeFieldPath
+                fromFieldPath: spec.region
+                toFieldPath: spec.forProvider.region
+              - type: FromCompositeFieldPath
+                fromFieldPath: metadata.name
+                toFieldPath: metadata.annotations['crossplane.io/external-name']
