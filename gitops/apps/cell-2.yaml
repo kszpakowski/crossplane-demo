@@ -11,6 +11,8 @@ spec:
   source:
     repoURL: https://github.com/kszpakowski/crossplane-demo.git
     path: "./gitops/cells/2"
+    directory:
+      recurse: true
   project: default
   syncPolicy:
     automated:
