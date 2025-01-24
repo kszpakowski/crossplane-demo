@@ -1,0 +1,9 @@
+apiVersion: infra.karolsz.com/v1alpha1
+kind: xCell
+metadata:
+  name: cell-1
+  # annotations:
+    # crossplane.io/paused: "true"
+spec:
+  region: eu-central-1
+  size: Large
