@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: compositions
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    server: https://kubernetes.default.svc
+  source:
+    repoURL: https://github.com/kszpakowski/crossplane-demo.git
+    path: "./gitops/compositions"
+  project: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true

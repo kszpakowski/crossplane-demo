@@ -1,0 +1,28 @@
+# https://docs.crossplane.io/v1.18/concepts/composite-resource-definitions/
+apiVersion: apiextensions.crossplane.io/v1
+kind: CompositeResourceDefinition
+metadata:
+  name: xcells.infra.karolsz.com
+spec:
+  group: infra.karolsz.com
+  names:
+    kind: xCell
+    plural: xcells
+  versions:
+  - name: v1alpha1
+    served: true
+    referenceable: true # The referenceable: true field indicates which version of the schema Compositions use. Only one version can be referenceable
+    schema:
+      openAPIV3Schema:
+        type: object
+        properties:
+          spec:
+            type: object
+            properties:
+              region:
+                type: string 
+              size:
+                type: string  
+            required: 
+              - region 
+              - size
