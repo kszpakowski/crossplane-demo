@@ -103,18 +103,23 @@ p3 --> pc3
 graph LR
 
 subgraph GitOps Repository
-  gc[<a href="./gitops/apps/compositions.yaml">apps/compositions.ymal</a>]
-  gcdc[<a href="./gitops/compositions/cell/cell-composition.yaml">compositions/cell/cell-composition.ymal</a>]
-  gcdxrd[compositions/cell-xrd.ymal]
+  gc[<a href="https://github.com/kszpakowski/crossplane-demo/blob/main/gitops/apps/compositions.yaml">apps/compositions.ymal</a>]
 
-  grc1[apps/cell-1.yaml]
-  grc1d[apps/cells/1/cell.yaml]
+  gcdc[<a href="https://github.com/kszpakowski/crossplane-demo/blob/main/gitops/compositions/cell/cell-composition.yaml">compositions/cell/cell-composition.ymal</a>]
 
-  grc2[apps/cell-2.yaml]
-  grc2d[apps/cells/2/cell.yaml]
+  gcdxrd[<a href="https://github.com/kszpakowski/crossplane-demo/blob/main/gitops/compositions/cell/cell-xdr.yaml">compositions/cell-xrd.ymal</a>]
 
-  grcn[apps/cell-n.yaml]
-  grcnd[apps/cells/n/cell.yaml]
+  grc1[<a href="https://github.com/kszpakowski/crossplane-demo/blob/main/gitops/apps/cell-1.yaml">apps/cell-1.yaml</a>]
+
+  grc1d[<a href="https://github.com/kszpakowski/crossplane-demo/blob/main/gitops/cells/1/cell.yaml">cells/1/cell.yaml</a>]
+
+  grc2[<a href="https://github.com/kszpakowski/crossplane-demo/blob/main/gitops/apps/cell-2.yaml"> apps/cell-2.yaml</a>]
+
+  grc2d[<a href="https://github.com/kszpakowski/crossplane-demo/blob/main/gitops/cells/2/cell.yaml">cells/2/cell.yaml</a>]
+
+  grcn[<a href="https://github.com/kszpakowski/crossplane-demo/blob/main/gitops/apps/cell-3.yaml"> apps/cell-3.yaml</a>]
+
+  grcnd[<a href="https://github.com/kszpakowski/crossplane-demo/blob/main/gitops/cells/3/cell.yaml">cells/3/cell.yaml</a>]
 end
 
 subgraph Management EKS cluster
