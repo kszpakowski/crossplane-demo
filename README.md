@@ -23,7 +23,7 @@ Kind cluster will be created and bootstrapped with argocd.
 - Port forward for argo will be created on port 8080
 - ArgoCD login page will open and you can login as admin with password from clipboard
 
-<img src=./img/argo-apps.png>
+<img src=./docs/img/argo-apps.png>
 
 ## Destroy
 
@@ -102,6 +102,21 @@ p3 --> pc3
 ```mermaid
 graph LR
 
+subgraph GitOps Repository
+  gc[<a href="./gitops/apps/compositions.yaml">apps/compositions.ymal</a>]
+  gcdc[<a href="./gitops/compositions/cell/cell-composition.yaml">compositions/cell/cell-composition.ymal</a>]
+  gcdxrd[compositions/cell-xrd.ymal]
+
+  grc1[apps/cell-1.yaml]
+  grc1d[apps/cells/1/cell.yaml]
+
+  grc2[apps/cell-2.yaml]
+  grc2d[apps/cells/2/cell.yaml]
+
+  grcn[apps/cell-n.yaml]
+  grcnd[apps/cells/n/cell.yaml]
+end
+
 subgraph Management EKS cluster
     subgraph ArgoCD
         c1[Cell1<br>Application]
@@ -174,21 +189,6 @@ subgraph AWS account 65432
 end
 
 
-subgraph GitOps Repository
-  gc[apps/compositions.ymal]
-  gcdc[compositions/cell-composition.ymal]
-  gcdxrd[compositions/cell-xrd.ymal]
-
-  grc1[apps/cell-1.yaml]
-  grc1d[apps/cells/1/cell.yaml]
-
-  grc2[apps/cell-2.yaml]
-  grc2d[apps/cells/2/cell.yaml]
-
-  grcn[apps/cell-n.yaml]
-  grcnd[apps/cells/n/cell.yaml]
-end
-
 gc --> ac
 gcdc --> ac
 gcdxrd --> ac
@@ -215,3 +215,7 @@ grc2d --> c2
 grcn --> cn
 grcnd --> cn
 ```
+
+## TODO
+
+- move provider configuration into composition to dynamically create configurations per account
