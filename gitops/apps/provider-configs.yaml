@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: provider-configs
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    server: https://kubernetes.default.svc
+  source:
+    directory:
+      recurse: true
+    repoURL: https://github.com/kszpakowski/crossplane-demo.git
+    path: "./gitops/provider-configs"
+  project: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
