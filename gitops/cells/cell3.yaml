@@ -1,7 +1,0 @@
-apiVersion: infra.karolsz.com/v1alpha1
-kind: xCell
-metadata:
-  name: cell-3
-spec:
-  region: eu-central-1
-  size: Small
