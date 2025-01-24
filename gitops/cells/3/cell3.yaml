@@ -3,5 +3,6 @@ kind: xCell
 metadata:
   name: cell-3
 spec:
+  account: "779291601624"
   region: eu-central-1
   size: Small
