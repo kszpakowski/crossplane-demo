@@ -29,7 +29,7 @@ Kind cluster will be created and bootstrapped with argocd.
 
 > AWS resources are not going to be removed.
 
-Run `./mgmt-cluster/create.sh` to destroy kind cluster. 
+Run `./mgmt-cluster/create.sh` to destroy kind cluster.
 
 ## Repository structure
 
