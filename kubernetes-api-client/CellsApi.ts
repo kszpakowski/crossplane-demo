@@ -7,6 +7,6 @@ export class CellsApi {
     }
 
     public async getCells() {
-        return this.apiClient.listClusterCustomObject({ group: "infra.karolsz.com", plural: "xcells", version: "v1alpha1" })
+        return await this.apiClient.listClusterCustomObject({ group: "infra.karolsz.com", plural: "xcells", version: "v1alpha1" })
     }
 }

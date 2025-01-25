@@ -247,6 +247,19 @@ grcnd --> cn
 
    A: Crossplane can create EKS clusters and deploy applications using helm provider ([docs](https://docs.crossplane.io/v1.18/guides/multi-tenant/#control-plane-of-control-planes))
 
+## References
+
+- [Crossplane documentation](https://docs.crossplane.io/v1.18/)
+- [Reference platfrom implementation for AWS](https://github.com/upbound/platform-ref-aws) - example how to build platform API
+- [Community extensions](https://github.com/orgs/crossplane-contrib/repositories?type=all) - additional functions, providers
+
 ## TODO
 
 - [ ] [configure argo cd](https://docs.crossplane.io/v1.18/guides/crossplane-with-argo-cd/)
+- [ ] Fix provider config being not ready
+- [ ] Add custom composition function
+  - [ ] try cdk8s to generate resources
+- [ ] pass data between pipeline steps
+  - [ ] using xrd status properties
+  - [ ] using environment
+- [ ] Use single provider per account instead of splitting per managed resource type
