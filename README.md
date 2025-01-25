@@ -51,56 +51,62 @@ Run `./mgmt-cluster/create.sh` to destroy kind cluster.
 ```mermaid
 graph LR
 
+%% Composite Resource
 subgraph Composite Resource
-xr1[Cell 1]
-xr2[Cell 2]
-xr3[Cell 3]
+  xr1[Cell 1]
+  xr2[Cell 2]
+  xr3[Cell 3]
 end
 
+%% Composite Resource Definition
 subgraph Composite Resource Definition
-xrd[Cell API]
+  xrd[Cell API]
 end
 
+%% Composition
 subgraph Composition
-x[Cell Impl]
+  composition[Cell Implementation]
 end
 
+%% Managed Resource
 subgraph Managed Resource
-mr1[ELB]
-mr2[VPC]
-mr3[EKS]
+  mrELB[ELB]
+  mrVPC[VPC]
+  mrEKS[EKS]
 end
 
+%% Provider
 subgraph Provider
-p1[AWS S3 Provider]
-p2[AWS VPC Provider]
-p3[AWS EKS Provider]
+  provS3[AWS S3 Provider]
+  provVPC[AWS VPC Provider]
+  provEKS[AWS EKS Provider]
 end
 
+%% Provider Configuration
 subgraph Provider Configuration
-pc1[Account 1234 <br> S3 provider conf]
-pc2[Account 1234 <br> VPC provider conf]
-pc3[Account 1234 <br> EKS provider conf]
+  confS3[Account 1234<br>S3 Provider Config]
+  confVPC[Account 1234<br>VPC Provider Config]
+  confEKS[Account 1234<br>EKS Provider Config]
 end
 
+%% Connections between components
 xr1 --> xrd
 xr2 --> xrd
 xr3 --> xrd
 
-xrd --> x
+xrd --> composition
 
-x --> mr1
-x --> mr2
-x --> mr3
+composition --> mrELB
+composition --> mrVPC
+composition --> mrEKS
 
-mr1 --> p1
-mr2 --> p2
-mr3 --> p3
+mrELB --> provS3
+mrVPC --> provVPC
+mrEKS --> provEKS
 
-p1 --> pc1
-p2 --> pc2
-p3 --> pc3
-
+provS3 --> confS3
+provVPC --> confVPC
+provEKS --> confEKS
 ```
 
 ## Architecture
@@ -108,123 +114,121 @@ p3 --> pc3
 ```mermaid
 graph LR
 
+%% GitOps Repository
 subgraph GitOps Repository
-  gc[<a href="https://github.com/kszpakowski/crossplane-demo/blob/main/gitops/apps/compositions.yaml">apps/compositions.ymal</a>]
+  apps[apps/compositions.yaml]
+  cellComp[compositions/cell/cell-composition.yaml]
+  cellXrd[compositions/cell/cell-xrd.yaml]
 
-  gcdc[<a href="https://github.com/kszpakowski/crossplane-demo/blob/main/gitops/compositions/cell/cell-composition.yaml">compositions/cell/cell-composition.ymal</a>]
+  cell1App[apps/cell-1.yaml]
+  cell1Def[cells/1/cell.yaml]
 
-  gcdxrd[<a href="https://github.com/kszpakowski/crossplane-demo/blob/main/gitops/compositions/cell/cell-xdr.yaml">compositions/cell-xrd.ymal</a>]
+  cell2App[apps/cell-2.yaml]
+  cell2Def[cells/2/cell.yaml]
 
-  grc1[<a href="https://github.com/kszpakowski/crossplane-demo/blob/main/gitops/apps/cell-1.yaml">apps/cell-1.yaml</a>]
-
-  grc1d[<a href="https://github.com/kszpakowski/crossplane-demo/blob/main/gitops/cells/1/cell.yaml">cells/1/cell.yaml</a>]
-
-  grc2[<a href="https://github.com/kszpakowski/crossplane-demo/blob/main/gitops/apps/cell-2.yaml"> apps/cell-2.yaml</a>]
-
-  grc2d[<a href="https://github.com/kszpakowski/crossplane-demo/blob/main/gitops/cells/2/cell.yaml">cells/2/cell.yaml</a>]
-
-  grcn[<a href="https://github.com/kszpakowski/crossplane-demo/blob/main/gitops/apps/cell-3.yaml"> apps/cell-3.yaml</a>]
-
-  grcnd[<a href="https://github.com/kszpakowski/crossplane-demo/blob/main/gitops/cells/3/cell.yaml">cells/3/cell.yaml</a>]
+  cellNApp[apps/cell-3.yaml]
+  cellNDef[cells/3/cell.yaml]
 end
 
-subgraph Management EKS cluster
-    subgraph ArgoCD
-        c1[Cell1<br>Application]
-        c2[Cell2<br>Application]
-        cn[CellN<br>Application]
+%% Management EKS Cluster
+subgraph Management EKS Cluster
+  subgraph ArgoCD
+    argocdCell1[Cell1 Application]
+    argocdCell2[Cell2 Application]
+    argocdCellN[CellN Application]
+    argocdCompositions[Compositions Application]
+  end
 
-        ac[Compositions<br>Application]
+  subgraph Crossplane
+    xrCell1[Cell1<br>type:xcell<br>name: cell-1<br>account: 12345<br>region: eu-central-1<br>CompositeResource]
+    xrCell2[Cell2<br>type:xcell<br>name: cell-2<br>account: 6789<br>region: eu-central-1<br>CompositeResource]
+    xrCellN[CellN<br>type:xcell<br>name: cell-n<br>account: 65432<br>region: eu-central-1<br>CompositeResource]
+
+    xrdComp[xCell Composite Resource Definition]
+    
+    subgraph CellComposition
+      mgmtEks[Management EKS]
+      eksCluster1[Cluster 1 EKS]
+      eksCluster2[Cluster 2 EKS]
+
+      mgmtEks --> eksCluster1
+      mgmtEks --> eksCluster2
     end
 
-    subgraph Crossplane
-        xr1[Cell1<br>type:xcell<br>name: cell-1<br>account: 12345<br>region: eu-central-1<br>CompositeResource]
-        xr2[Cell2<br>type:xcell<br>name: cell-2<br>account: 6789<br>region: eu-central-1<br>CompositeResource]
-        xrn[CellN<br>type:xcell<br>name: cell-n<br>account: 65432<br>region: eu-central-1<br>CompositeResource]
+    eksProvider[AWS EKS Provider]
 
-        cxrd[xCell<br>Compositie Resource Definition]
-        subgraph cc[Cell Composition]
-          eksm[Management<br>EKS]
-          eks1[Cluster 1<br>EKS]
-          eks2[Cluster 2<br>EKS]
+    providerAcc1[Account 12345 Provider Config]
+    providerAcc2[Account 6789 Provider Config]
+    providerAcc3[Account 65432 Provider Config]
 
-          eksm --> eks1
-          eksm --> eks2
-        end
+    eksCluster1 --> eksProvider
+    eksCluster2 --> eksProvider
+    mgmtEks --> eksProvider
 
-        ep[AWS EKS<br>Provider]
-
-        epc1[AWS EKS<br>Account 12345<br>Provider configuration]
-        epc2[AWS EKS<br>Account 6789<br>Provider configuration]
-        epc3[AWS EKS<br>Account 65432<br>Provider configuration]
-
-        eks1 --> ep
-        eks2 --> ep
-        eksm --> ep
-
-        ep --> epc1
-        ep --> epc2
-        ep --> epc3
-          
-    end
+    eksProvider --> providerAcc1
+    eksProvider --> providerAcc2
+    eksProvider --> providerAcc3
+  end
 end
 
-subgraph AWS account 12345
-    a1eksm[Management<br>EKS]
-    a1eks1[Cluster 1<br>EKS]
-    a1eks2[Cluster 2<br>EKS]
+%% AWS Account 12345
+subgraph AWS Account 12345
+  acc1Mgmt[Management EKS]
+  acc1Cluster1[Cluster 1 EKS]
+  acc1Cluster2[Cluster 2 EKS]
 
-    epc1 --> a1eksm
-    epc1 --> a1eks1
-    epc1 --> a1eks2
+  providerAcc1 --> acc1Mgmt
+  providerAcc1 --> acc1Cluster1
+  providerAcc1 --> acc1Cluster2
 end
 
-subgraph AWS account 6789
-    a2eksm[Management<br>EKS]
-    a2eks1[Cluster 1<br>EKS]
-    a2eks2[Cluster 2<br>EKS]
+%% AWS Account 6789
+subgraph AWS Account 6789
+  acc2Mgmt[Management EKS]
+  acc2Cluster1[Cluster 1 EKS]
+  acc2Cluster2[Cluster 2 EKS]
 
-    epc2 --> a2eksm
-    epc2 --> a2eks1
-    epc2 --> a2eks2
+  providerAcc2 --> acc2Mgmt
+  providerAcc2 --> acc2Cluster1
+  providerAcc2 --> acc2Cluster2
 end
 
-subgraph AWS account 65432
-    a3eksm[Management<br>EKS]
-    a3eks1[Cluster 1<br>EKS]
-    a3eks2[Cluster 2<br>EKS]
+%% AWS Account 65432
+subgraph AWS Account 65432
+  acc3Mgmt[Management EKS]
+  acc3Cluster1[Cluster 1 EKS]
+  acc3Cluster2[Cluster 2 EKS]
 
-    epc3 --> a3eksm
-    epc3 --> a3eks1
-    epc3 --> a3eks2
+  providerAcc3 --> acc3Mgmt
+  providerAcc3 --> acc3Cluster1
+  providerAcc3 --> acc3Cluster2
 end
 
+%% Connections between components
+apps --> argocdCompositions
+cellComp --> argocdCompositions
+cellXrd --> argocdCompositions
 
-gc --> ac
-gcdc --> ac
-gcdxrd --> ac
+argocdCompositions --> xrdComp
+argocdCompositions --> CellComposition
+xrdComp --> CellComposition
 
-ac --> cxrd
-ac --> cc
+argocdCell1 --> xrCell1
+argocdCell2 --> xrCell2
+argocdCellN --> xrCellN
 
-cxrd --> cc
+xrCell1 --> xrdComp
+xrCell2 --> xrdComp
+xrCellN --> xrdComp
 
-c1 --> xr1
-c2 --> xr2
-cn --> xrn
+cell1App --> argocdCell1
+cell1Def --> argocdCell1
 
-xr1 --> cxrd
-xr2 --> cxrd
-xrn --> cxrd
+cell2App --> argocdCell2
+cell2Def --> argocdCell2
 
-grc1 --> c1
-grc1d --> c1
-
-grc2 --> c2
-grc2d --> c2
-
-grcn --> cn
-grcnd --> cn
+cellNApp --> argocdCellN
+cellNDef --> argocdCellN
 ```
 
 ## Q&A
