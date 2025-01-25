@@ -2,13 +2,13 @@
 
 ## Setup
 
-1. Create crossplane provider secrets in mgmt/secrets ([docs](https://docs.crossplane.io/v1.18/getting-started/provider-aws/#generate-an-aws-key-pair-file))
+1. Create crossplane provider secrets in mgmt-cluster/secrets. Secret name must be composed of `cellName-providerType-accountId`. ([docs](https://docs.crossplane.io/v1.18/getting-started/provider-aws/#generate-an-aws-key-pair-file))
 
     ```yaml
     apiVersion: v1
     kind: Secret
     metadata:
-      name: s3-779291601624
+      name: cell-1-s3-779291601624
       namespace: crossplane-system
     data:
       creds:  ...
@@ -245,4 +245,4 @@ grcnd --> cn
 
 ## TODO
 
-...
+- [ ] [configure argo cd](https://docs.crossplane.io/v1.18/guides/crossplane-with-argo-cd/)
