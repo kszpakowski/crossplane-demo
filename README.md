@@ -243,6 +243,10 @@ grcnd --> cn
 
    A: Use kubernetes API client library to fetch managed resources. Check example code in `kubernetes-api-client`
 
+1. Q: How to manage cell's management cluster
+
+   A: Crossplane can create EKS clusters and deploy applications using helm provider ([docs](https://docs.crossplane.io/v1.18/guides/multi-tenant/#control-plane-of-control-planes))
+
 ## TODO
 
 - [ ] [configure argo cd](https://docs.crossplane.io/v1.18/guides/crossplane-with-argo-cd/)
