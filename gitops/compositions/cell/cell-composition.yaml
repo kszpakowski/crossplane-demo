@@ -17,14 +17,14 @@ spec:
         resources:
           - name: s3-provider-configuration
             base: 
-            apiVersion: aws.upbound.io/v1beta1
-            kind: ProviderConfig
-            spec:
-              credentials:
-                source: Secret
-                secretRef:
-                  namespace: crossplane-system
-                  key: creds
+              apiVersion: aws.upbound.io/v1beta1
+              kind: ProviderConfig
+              spec:
+                credentials:
+                  source: Secret
+                  secretRef:
+                    namespace: crossplane-system
+                    key: creds
             patches:
             - type: CombineFromComposite
               combine:
@@ -49,7 +49,7 @@ spec:
               apiVersion: s3.aws.upbound.io/v1beta1
               kind: Bucket
             patches:
-              - type: CombineFromComposite
+              - type: CombineFromComposite # Get provider config name from previous step
                 combine:
                   variables:
                     - fromFieldPath: metadata.name
