@@ -1,0 +1,16 @@
+{
+  "name": "crd-to-ts",
+  "module": "index.ts",
+  "type": "module",
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "codemaker": "^1.106.0",
+    "json2jsii": "^0.5.2",
+    "yaml": "^2.7.0"
+  }
+}

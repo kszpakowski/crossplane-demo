@@ -235,27 +235,34 @@ cellNDef --> argocdCellN
 
 > TODO
 
-1. Q: How to disable reconciliation
+1. __Q:__ How to disable reconciliation
 
-   A: ...
+   __A:__ ...
 
-1. Q: How to manage resources in multiple AWS accounts
+1. __Q:__ How to manage resources in multiple AWS accounts
 
-   A: ...
+   __A:__ ...
 
-1. Q: How to query managed resources
+1. __Q:__ How to query managed resources
 
-   A: Use kubernetes API client library to fetch managed resources. Check example code in `kubernetes-api-client`
+   __A:__ Use kubernetes API client library to fetch managed resources. Check example code in `kubernetes-api-client`
 
-1. Q: How to manage cell's management cluster
+1. __Q:__ How to manage cell's management cluster
 
-   A: Crossplane can create EKS clusters and deploy applications using helm provider ([docs](https://docs.crossplane.io/v1.18/guides/multi-tenant/#control-plane-of-control-planes))
+   __A:__ Crossplane can create EKS clusters and deploy applications using helm provider ([docs](https://docs.crossplane.io/v1.18/guides/multi-tenant/#control-plane-of-control-planes))
+
+1. __Q:__ How to progressively update XRs (manual Composition updates)
+
+   __A:__ TODO
 
 ## References
 
 - [Crossplane documentation](https://docs.crossplane.io/v1.18/)
 - [Reference platfrom implementation for AWS](https://github.com/upbound/platform-ref-aws) - example how to build platform API
 - [Community extensions](https://github.com/orgs/crossplane-contrib/repositories?type=all) - additional functions, providers
+- [Upbound marketplace](https://marketplace.upbound.io) - providers,configurations, functions
+- [AWS Network Configuration](https://marketplace.upbound.io/configurations/upbound/configuration-aws-network/v0.22.0/compositions/xnetworks.aws.platform.upbound.io/aws.platform.upbound.io/XNetwork)
+- [AWS EKS configuration](https://marketplace.upbound.io/configurations/upbound/configuration-aws-eks/v0.15.0)
 
 ## TODO
 
@@ -267,3 +274,4 @@ cellNDef --> argocdCellN
   - [ ] using xrd status properties
   - [ ] using environment
 - [ ] Use single provider per account instead of splitting per managed resource type
+- [ ] Create custom provider for KindCluster, to enable Compositions POCs in local env

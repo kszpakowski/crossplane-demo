@@ -2,6 +2,10 @@
 
 Demo of querying Crossplane Composite Resources from kubernetes API using nodejs.
 
+## Generation of TS from CRDs
+
+TS generation from CRDs example is available in `crd-to-ts` dir.
+
 ## Setup
 
 To install dependencies:
