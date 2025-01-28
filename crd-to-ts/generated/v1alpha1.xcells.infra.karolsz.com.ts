@@ -5,8 +5,7 @@ export const manifest = (props: XCell) => {
   return {
     apiVersion,
     kind,
-    metadata: props.metadata,
-    spec: props.spec,
+    ...toJson_XCell(props)
   }
 }
 

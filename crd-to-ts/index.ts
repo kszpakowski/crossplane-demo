@@ -22,23 +22,21 @@ for (const version of versions) {
     const typeName = TypeGenerator.normalizeTypeName(crd.spec.names.kind)
     types.emitType(typeName, schema);
 
-    // TODO generate to manifest function
-    generateHeader(code, crd, version)
+    generateHeader(code, typeName, crd, version)
     code.line(types.render())
     code.closeFile(fileName)
     await code.save(outDir);
 }
 
-function generateHeader(code: CodeMaker, crd: { spec: { group: string, names: { kind: string } } }, version: { name: string }) {
+function generateHeader(code: CodeMaker, typeName: string, crd: { spec: { group: string, names: { kind: string } } }, version: { name: string }) {
     code.line(`const apiVersion = '${crd.spec.group}/${version.name}';`);
     code.line(`const kind = '${crd.spec.names.kind}';`);
     code.line()
-    code.openBlock(`export const manifest = (props: XCell) =>`)
+    code.openBlock(`export const manifest = (props: ${typeName}) =>`)
     code.openBlock('return')
     code.line('apiVersion,')
     code.line('kind,')
-    code.line('metadata: props.metadata,')
-    code.line('spec: props.spec,')
+    code.line(`...toJson_${typeName}(props)`)
     code.closeBlock()
     code.closeBlock()
     code.line()
@@ -53,20 +51,6 @@ function createPropsSchema(schema: any) {
     return copy
 
 }
-
-
-// TODO strip AVK from schema
-
-// function createPropsStructSchema() {
-//     const copy: JSONSchema4 = { ...def.schema || {} };
-//     const props = copy.properties = copy.properties || {};
-//     delete props.apiVersion;
-//     delete props.kind;
-//     delete props.status;
-//     delete copy['x-kubernetes-group-version-kind'];
-
-//     copy.required = copy.required || [];
-
 
 // TODO handle lists
 
